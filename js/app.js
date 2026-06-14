@@ -43,7 +43,11 @@ btnVolverInicio3.addEventListener("click", function() {
 });
 
 btnVerListaReservas.addEventListener("click", function() {
+    mostrarListaReservas();
     mostrarPantalla("pantallaLista");
+});
+buscarReserva.addEventListener("input", function() {
+    mostrarListaReservas(buscarReserva.value);
 });
 
 btnVolverDashboard.addEventListener("click", function() {
@@ -64,6 +68,7 @@ formReserva.addEventListener("submit", function(evento) {
     const horaReserva = document.getElementById("horaReserva").value;
     const cantidadPersonas = parseInt(document.getElementById("cantidadPersonas").value);
     const idMesa = parseInt(document.getElementById("mesaReserva").value);
+    const buscarReserva = document.getElemenById("buscarReserva");
 
     const resultado = registrarReserva(
         nombreCliente,
@@ -89,8 +94,107 @@ formReserva.addEventListener("submit", function(evento) {
     formReserva.reset();
     document.getElementById("mensajeReserva").textContent = "";
 
+    actualizarDashboard();
     mostrarPantalla("pantallaConfirmacion");
 });
+
+
+const formLogin = document.getElementById("formLogin");
+
+formLogin.addEventListener("submit", function(evento) {
+    evento.preventDefault();
+
+    const usuario = document.getElementById("usuarioAdmin").value;
+    const password = document.getElementById("passwordAdmin").value;
+
+    if (usuario === "admin@reservaya.com" && password === "admin123") {
+        document.getElementById("mensajeLogin").textContent = "";
+        formLogin.reset();
+        actualizarDashboard();
+        mostrarPantalla("pantallaDashboard");
+    } else {
+        document.getElementById("mensajeLogin").textContent = "Usuario o contraseña incorrectos.";
+    }
+});
+
+function actualizarDashboard() {
+    const reservasHoy = obtenerReservasHoy();
+    const mesasOcupadasHoy = obtenerMesasOcupadasHoy();
+    const proximasReservas = obtenerProximasReservas();
+
+    document.getElementById("totalReservasHoy").textContent = reservasHoy.length;
+    document.getElementById("totalMesasOcupadas").textContent = mesasOcupadasHoy;
+
+    const contenedorProximas = document.getElementById("proximasReservas");
+    contenedorProximas.innerHTML = "";
+
+    if (proximasReservas.length === 0) {
+        contenedorProximas.innerHTML = "<p>No hay próximas reservas.</p>";
+        return;
+    }
+
+    proximasReservas.forEach(function(reserva) {
+        const cliente = obtenerClientePorId(reserva.id_cliente);
+        const mesa = obtenerMesaPorId(reserva.id_mesa);
+
+        const item = document.createElement("div");
+        item.classList.add("item-reserva");
+
+        item.innerHTML = `
+            <h4>${cliente.nombre}</h4>
+            <p>${reserva.hora_reserva} - Mesa ${mesa.numero_mesa} - ${reserva.cantidad_personas} personas</p>
+        `;
+
+        contenedorProximas.appendChild(item);
+    });
+}
+
+function mostrarListaReservas(filtro = "") {
+    const contenedorLista = document.getElementById("listaReservas");
+    contenedorLista.innerHTML = "";
+
+    const textoFiltro = filtro.toLowerCase();
+
+    const reservasFiltradas = reservas.filter(function(reserva) {
+        const cliente = obtenerClientePorId(reserva.id_cliente);
+        const mesa = obtenerMesaPorId(reserva.id_mesa);
+        const estado = obtenerEstadoPorId(reserva.id_estado);
+
+        return (
+            cliente.nombre.toLowerCase().includes(textoFiltro) ||
+            reserva.fecha_reserva.includes(textoFiltro) ||
+            String(mesa.numero_mesa).includes(textoFiltro) ||
+            estado.nombre_estado.toLowerCase().includes(textoFiltro)
+        );
+    });
+
+    if (reservasFiltradas.length === 0) {
+        contenedorLista.innerHTML = "<p>No se encontraron reservas.</p>";
+        return;
+    }
+
+    reservasFiltradas.forEach(function(reserva) {
+        const cliente = obtenerClientePorId(reserva.id_cliente);
+        const mesa = obtenerMesaPorId(reserva.id_mesa);
+        const estado = obtenerEstadoPorId(reserva.id_estado);
+
+        const item = document.createElement("div");
+        item.classList.add("item-reserva");
+
+        item.innerHTML = `
+            <h4>${cliente.nombre}</h4>
+            <p>Fecha: ${reserva.fecha_reserva}</p>
+            <p>Hora: ${reserva.hora_reserva}</p>
+            <p>Mesa: ${mesa.numero_mesa}</p>
+            <p>Personas: ${reserva.cantidad_personas}</p>
+            <p>Estado: ${estado.nombre_estado}</p>
+        `;
+
+        contenedorLista.appendChild(item);
+    });
+}
+
+
 
 window.addEventListener("load", function() {
     cargarDatosJSON();

@@ -104,3 +104,44 @@ function registrarReserva(nombreCliente, fecha, hora, cantidadPersonas, idMesa) 
     };
 }
 
+// Funcion para obtener la fecha actual en formato YYYY-MM-DD
+function obtenerFechaActual() {
+    const hoy = new Date();
+    const anio = hoy.getFullYear();
+    const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoy.getDate()).padStart(2, "0");
+
+    return anio + "-" + mes + "-" + dia;
+}
+
+// Funcion para obtener las reservas de hoy
+function obtenerReservasHoy() {
+    const fechaActual = obtenerFechaActual();
+
+    return reservas.filter(function(reserva) {
+        return reserva.fecha_reserva === fechaActual;
+    });
+}
+
+// Funcion para obtener la cantidad de mesas ocupadas hoy
+function obtenerMesasOcupadasHoy() {
+    const reservasHoy = obtenerReservasHoy();
+    const mesasOcupadas = [];
+
+    reservasHoy.forEach(function(reserva) {
+        if (!mesasOcupadas.includes(reserva.id_mesa)) {
+            mesasOcupadas.push(reserva.id_mesa);
+        }
+    });
+
+    return mesasOcupadas.length;
+}
+
+// Funcion para obtener proximas reservas
+function obtenerProximasReservas() {
+    const fechaActual = obtenerFechaActual();
+
+    return reservas.filter(function(reserva) {
+        return reserva.fecha_reserva >= fechaActual;
+    });
+}
