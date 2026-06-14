@@ -1,0 +1,79 @@
+{
+  "clientes": [
+    {
+      "id_cliente": 1,
+      "nombre": "Juan Perez",
+      "telefono": "987654321",
+      "correo": "juan@gmail.com"
+    },
+    {
+      "id_cliente": 2,
+      "nombre": "Maria Torres",
+      "telefono": "999888777",
+      "correo": "maria@gmail.com"
+    }
+  ],
+  "mesas": [
+    {
+      "id_mesa": 1,
+      "numero_mesa": 1,
+      "capacidad": 2,
+      "estado": "Disponible"
+    },
+    {
+      "id_mesa": 2,
+      "numero_mesa": 2,
+      "capacidad": 4,
+      "estado": "Disponible"
+    },
+    {
+      "id_mesa": 3,
+      "numero_mesa": 3,
+      "capacidad": 4,
+      "estado": "Disponible"
+    },
+    {
+      "id_mesa": 4,
+      "numero_mesa": 4,
+      "capacidad": 6,
+      "estado": "Disponible"
+    },
+    {
+      "id_mesa": 5,
+      "numero_mesa": 5,
+      "capacidad": 8,
+      "estado": "Disponible"
+    }
+  ],
+  "estados_reserva": [
+    {
+      "id_estado": 1,
+      "nombre_estado": "Pendiente"
+    },
+    {
+      "id_estado": 2,
+      "nombre_estado": "Confirmada"
+    },
+    {
+      "id_estado": 3,
+      "nombre_estado": "Cancelada"
+    },
+    {
+      "id_estado": 4,
+      "nombre_estado": "Finalizada"
+    }
+  ],
+  "reservas": [
+    {
+      "id_reserva": 1,
+      "id_cliente": 1,
+      "id_mesa": 2,
+      "id_estado": 1,
+      "fecha_reserva": "2026-08-20",
+      "hora_reserva": "19:00",
+      "cantidad_personas": 4
+    }
+  ]
+}
+
+

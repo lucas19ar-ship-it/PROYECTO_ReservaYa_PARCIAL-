@@ -1,0 +1,301 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f6f7;
+    color: #202333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.pantalla {
+    width: 100%;
+    max-width: 390px;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    padding: 28px;
+    display: none;
+}
+
+.pantalla.activa {
+    display: block;
+}
+
+.logo {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 28px;
+}
+
+.icono-logo {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.logo h1 {
+    font-size: 28px;
+    font-weight: 700;
+    font-style: italic;
+    color: #202333;
+}
+
+.logo p,
+.pantalla > p {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #7a7f8c;
+    text-align: center;
+}
+
+.btn-principal {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2f7657;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.btn-principal:hover {
+    background-color: #28684d;
+}
+
+.btn-link {
+    width: 100%;
+    border: none;
+    background: none;
+    color: #2f7657;
+    font-size: 13px;
+    margin-top: 22px;
+    cursor: pointer;
+}
+
+.barra-superior {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 26px;
+}
+
+.barra-superior h2 {
+    font-size: 20px;
+    color: #202333;
+}
+
+.btn-volver {
+    border: none;
+    background: none;
+    font-size: 26px;
+    color: #202333;
+    cursor: pointer;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formulario label {
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #202333;
+}
+
+.formulario input,
+.formulario select,
+.buscador {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #dcdfe5;
+    border-radius: 8px;
+    padding: 0 14px;
+    background-color: white;
+    font-size: 14px;
+}
+
+.formulario input:focus,
+.formulario select:focus,
+.buscador:focus {
+    outline: 2px solid rgba(47, 118, 87, 0.25);
+    border-color: #2f7657;
+}
+
+#mensajeReserva,
+#mensajeLogin {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #b83227;
+}
+
+.confirmacion-icono {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 62px;
+}
+
+#pantallaConfirmacion h2 {
+    margin-top: 18px;
+    text-align: center;
+    color: #2f7657;
+    font-size: 24px;
+}
+
+.tarjeta-confirmacion {
+    margin-top: 24px;
+    padding: 18px;
+    background-color: white;
+    border: 1px solid #e1e4ea;
+    border-radius: 10px;
+}
+
+.tarjeta-confirmacion p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #202333;
+}
+
+.header-admin {
+    margin: -28px -28px 24px;
+    padding: 18px;
+    background-color: #2f7657;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.header-admin h2 {
+    font-size: 17px;
+}
+
+.header-admin .btn-volver {
+    color: white;
+    position: absolute;
+    left: 24px;
+}
+
+.resumen-admin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.card-resumen {
+    background-color: white;
+    border: 1px solid #e1e4ea;
+    border-radius: 10px;
+    padding: 18px 10px;
+    text-align: center;
+}
+
+.card-resumen h3 {
+    font-size: 28px;
+    color: #2f7657;
+}
+
+.card-resumen p {
+    margin-top: 5px;
+    font-size: 10px;
+    color: #7a7f8c;
+    font-weight: 700;
+}
+
+.titulo-seccion {
+    margin: 18px 0 12px;
+    text-align: center;
+    font-size: 15px;
+    color: #202333;
+}
+
+.calendario {
+    min-height: 170px;
+    background-color: white;
+    border: 1px solid #e1e4ea;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.lista-simple,
+.lista-reservas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item-reserva {
+    background-color: white;
+    border: 1px solid #e1e4ea;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.item-reserva h4 {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #202333;
+}
+
+.item-reserva p {
+    font-size: 12px;
+    color: #7a7f8c;
+    line-height: 1.5;
+}
+
+.buscador {
+    margin-bottom: 22px;
+}
+
+.acciones-reserva {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-editar,
+.btn-eliminar {
+    flex: 1;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-editar {
+    background-color: #d98c22;
+}
+
+.btn-eliminar {
+    background-color: #b83227;
+}
+
+@media (min-width: 768px) {
+    body {
+        background-color: #eeeeee;
+    }
+
+    .pantalla {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        min-height: 760px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    }
+}

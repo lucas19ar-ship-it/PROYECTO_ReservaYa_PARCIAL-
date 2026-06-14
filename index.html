@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReservaYa</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- PANTALLA 01: INICIO CLIENTE -->
+    <section id="pantallaInicio" class="pantalla activa">
+        <div class="logo">
+            <div class="icono-logo">🍽️</div>
+            <h1>ReservaYa</h1>
+            <p>Gestiona tus reservas de forma fácil y rápida</p>
+        </div>
+
+        <button id="btnHacerReserva" class="btn-principal">HACER RESERVA</button>
+        <button id="btnAccesoAdmin" class="btn-link">ACCESO ADMINISTRADOR</button>
+    </section>
+
+    <!-- PANTALLA 02: FORMULARIO DE RESERVA -->
+    <section id="pantallaFormulario" class="pantalla">
+        <div class="barra-superior">
+            <button id="btnVolverInicio1" class="btn-volver">←</button>
+            <h2>NUEVA RESERVA</h2>
+        </div>
+
+        <form id="formReserva" class="formulario">
+            <label for="nombreCliente">NOMBRE COMPLETO</label>
+            <input type="text" id="nombreCliente" placeholder="Ej: Juan Pérez" required>
+
+            <label for="fechaReserva">FECHA</label>
+            <input type="date" id="fechaReserva" required>
+
+            <label for="horaReserva">HORA</label>
+            <input type="time" id="horaReserva" required>
+
+            <label for="cantidadPersonas">N° DE PERSONAS</label>
+            <input type="number" id="cantidadPersonas" min="1" placeholder="Ej: 4 personas" required>
+
+            <label for="mesaReserva">MESA</label>
+            <select id="mesaReserva" required>
+                <option value="">Mesa 1, 2, 3...</option>
+            </select>
+
+            <button type="submit" class="btn-principal">Confirmar Reserva</button>
+        </form>
+
+        <p id="mensajeReserva"></p>
+    </section>
+
+    <!-- PANTALLA 03: CONFIRMACION -->
+    <section id="pantallaConfirmacion" class="pantalla">
+        <div class="confirmacion-icono">✅</div>
+        <h2>¡Reserva Confirmada!</h2>
+        <p>Tu mesa ha sido reservada exitosamente</p>
+
+        <div class="tarjeta-confirmacion">
+            <p id="confNombre"></p>
+            <p id="confFecha"></p>
+            <p id="confHora"></p>
+            <p id="confPersonas"></p>
+            <p id="confMesa"></p>
+        </div>
+
+        <button id="btnVolverInicio2" class="btn-principal">VOLVER AL INICIO</button>
+    </section>
+
+    <!-- PANTALLA 04: LOGIN ADMIN -->
+    <section id="pantallaLogin" class="pantalla">
+        <div class="logo">
+            <div class="icono-logo">🍽️</div>
+            <h1>ReservaYa</h1>
+            <p>Panel de Administrador</p>
+        </div>
+
+        <form id="formLogin" class="formulario">
+            <label for="usuarioAdmin">USUARIO</label>
+            <input type="text" id="usuarioAdmin" placeholder="admin@reservaya.com" required>
+
+            <label for="passwordAdmin">CONTRASEÑA</label>
+            <input type="password" id="passwordAdmin" placeholder="********" required>
+
+            <button type="submit" class="btn-principal">INGRESAR</button>
+        </form>
+
+        <button id="btnVolverInicio3" class="btn-link">← Volver al inicio</button>
+        <p id="mensajeLogin"></p>
+    </section>
+
+    <!-- PANTALLA 05: DASHBOARD ADMIN -->
+    <section id="pantallaDashboard" class="pantalla">
+        <header class="header-admin">
+            <h2>ReservaYa - Admin</h2>
+        </header>
+
+        <div class="resumen-admin">
+            <div class="card-resumen">
+                <h3 id="totalReservasHoy">0</h3>
+                <p>RESERVAS HOY</p>
+            </div>
+
+            <div class="card-resumen">
+                <h3 id="totalMesasOcupadas">0</h3>
+                <p>MESAS OCUPADAS</p>
+            </div>
+        </div>
+
+        <h3 class="titulo-seccion">📅 Reservas de hoy</h3>
+        <div id="calendario" class="calendario"></div>
+
+        <h3 class="titulo-seccion">Próximas reservas</h3>
+        <div id="proximasReservas" class="lista-simple"></div>
+
+        <button id="btnVerListaReservas" class="btn-principal">VER TODAS LAS RESERVAS</button>
+        <button id="btnCerrarSesion" class="btn-link">Cerrar sesión</button>
+    </section>
+
+    <!-- PANTALLA 06: LISTA DE RESERVAS -->
+    <section id="pantallaLista" class="pantalla">
+        <header class="header-admin">
+            <button id="btnVolverDashboard" class="btn-volver">←</button>
+            <h2>Todas las Reservas</h2>
+        </header>
+
+        <input 
+            type="text" 
+            id="buscarReserva" 
+            class="buscador" 
+            placeholder="🔍 Buscar reserva..."
+        >
+
+        <div id="listaReservas" class="lista-reservas"></div>
+    </section>
+
+    <script src="js/reservas.js"></script>
+    <script src="js/calendario.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
