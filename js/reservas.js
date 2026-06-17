@@ -4,23 +4,43 @@ let mesas = [];
 let estadosReserva = [];
 let reservas = [];
 
+const CLAVE_DATOS = "reservaya_datos"; 
+
 // Funcion para cargar los datos desde el archivo JSON
 async function cargarDatosJSON() {
     try {
-        const respuesta = await fetch("data/reservas.json");
-        const datos = await respuesta.json();
+        const datosLocales = cargarDatosLocalStorage();
 
-        clientes = datos.clientes;
+        if (datosLocales !== null) {
+            clientes = datosLocales.clientes;
+            mesas = datosLocales.mesas;
+            estadosReserva = datosLocales.estados_reserva;
+            reservas = datosLocales.reservas;
+
+            cargarMesasEnFormulario();
+            console.log("Datos cargados desde localStorage:", datosLocales);
+            return;
+        
+        }
+
+        const respuesta = await fetch("data/reservas.json");
+        const datos = await respuesta.json(); 
+
+        clientes = datos.clientes; 
         mesas = datos.mesas;
         estadosReserva = datos.estados_reserva;
-        reservas = datos.reservas;
+        reservas = datos.reservas; 
 
+        guardarDatosLocalStorage();
         cargarMesasEnFormulario();
-        console.log("Datos cargados correctamente:", datos);
+
+        console.log("Datos cargados desde JSON:", datos);
     } catch (error) {
-        console.error("Error al cargar el JSON:", error);
+        console.error("Error al cargar los datos:", error);
     }
 }
+
+
 
 // Funcion para llenar el select de mesas
 function cargarMesasEnFormulario() {
@@ -95,6 +115,7 @@ function registrarReserva(nombreCliente, fecha, hora, cantidadPersonas, idMesa) 
     };
 
     reservas.push(nuevaReserva);
+    guardarDatosLocalStorage();
 
     return {
         estado: true,
@@ -144,4 +165,58 @@ function obtenerProximasReservas() {
     return reservas.filter(function(reserva) {
         return reserva.fecha_reserva >= fechaActual;
     });
+}
+
+// Función para eliminar una reserva por ID
+function eliminarReservaPorId(idReserva) {
+    reservas = reservas.filter(function(reserva) {
+        return reserva.id_reserva !== idReserva;
+    });
+
+    guardarDatosLocalStorage();
+}
+
+// Función para obtener una reserva por ID
+function obtenerReservaPorId(idReserva) {
+    return reservas.find(function(reserva) {
+        return reserva.id_reserva === idReserva;
+    });
+}
+
+// Función para actualizar una reserva existente 
+function actualizarReservaPorId(idReserva, fecha, hora, cantidadPersonas, idMesa) {
+    reservas.forEach(function(reserva) {
+        if (reserva.id_reserva === idReserva) {
+            reserva.fecha_reserva = fecha;
+            reserva.hora_reserva = hora;
+            reserva.cantidad_personas = cantidadPersonas;
+            reserva.id_mesa = idMesa;
+        }
+    });
+
+    guardarDatosLocalStorage();
+}
+
+// Función para guardar los datos en LocalStorage 
+function guardarDatosLocalStorage (){
+    const datos = {
+        clientes: clientes,
+        mesas: mesas,
+        estados_reserva: estadosReserva,
+        reservas: reservas
+    };
+
+    localStorage.setItem(CLAVE_DATOS, JSON.stringify(datos));
+}
+
+// Función para cargar datos guardados en LocalStorage
+function cargarDatosLocalStorage() { 
+    const datosGuardados = localStorage.getItem(CLAVE_DATOS); 
+
+    if (datosGuardados === null) {
+        return null;
+
+    }
+
+    return JSON.parse(datosGuardados); 
 }

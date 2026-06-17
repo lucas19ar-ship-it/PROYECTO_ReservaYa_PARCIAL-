@@ -20,6 +20,8 @@ const btnVolverInicio3 = document.getElementById("btnVolverInicio3");
 const btnVerListaReservas = document.getElementById("btnVerListaReservas");
 const btnVolverDashboard = document.getElementById("btnVolverDashboard");
 const btnCerrarSesion = document.getElementById("btnCerrarSesion");
+const buscarReserva = document.getElementById("buscarReserva");
+let idReservaEditando = null; 
 
 // Eventos de navegacion
 btnHacerReserva.addEventListener("click", function() {
@@ -68,7 +70,28 @@ formReserva.addEventListener("submit", function(evento) {
     const horaReserva = document.getElementById("horaReserva").value;
     const cantidadPersonas = parseInt(document.getElementById("cantidadPersonas").value);
     const idMesa = parseInt(document.getElementById("mesaReserva").value);
-    const buscarReserva = document.getElemenById("buscarReserva");
+
+    if (idReservaEditando !== null) {
+       actualizarReservaPorId(
+           idReservaEditando,
+           fechaReserva,
+           horaReserva,
+           cantidadPersonas,
+           idMesa
+        );
+
+        idReservaEditando = null;
+        document.querySelector("#formReserva button[type='submit']").textContent = "Confirmar Reserva";
+
+        formReserva.reset();
+        actualizarDashboard();
+        mostrarListaReservas(buscarReserva.value);
+        mostrarPantalla("pantallaLista");
+
+        return;
+    }
+
+
 
     const resultado = registrarReserva(
         nombreCliente,
@@ -188,10 +211,51 @@ function mostrarListaReservas(filtro = "") {
             <p>Mesa: ${mesa.numero_mesa}</p>
             <p>Personas: ${reserva.cantidad_personas}</p>
             <p>Estado: ${estado.nombre_estado}</p>
+
+            <div class="acciones-reserva">
+                <button class="btn-editar" onclick="editarReserva(${reserva.id_reserva})">
+                    Editar 
+                </button>
+                <button class="btn-eliminar" onclick="eliminarReserva(${reserva.id_reserva})">
+                    Eliminar
+                </button>
+            </div>
+        
         `;
 
         contenedorLista.appendChild(item);
     });
+}
+
+function eliminarReserva(idReserva) { 
+    const confirmar =confirm("¿Estas seguro de eliminar esta reserva?"); 
+
+    if (confirmar === false) {
+        return;
+    }
+
+    eliminarReservaPorId(idReserva);
+    mostrarListaReservas(buscarReserva.value);
+    actualizarDashboard();
+
+    alert("Reserva eliminada correctamente...");
+}
+
+function editarReserva(idReserva) { 
+    const reserva = obtenerReservaPorId(idReserva);
+    const cliente = obtenerClientePorId(reserva.id_cliente);
+
+    idReservaEditando = idReserva; 
+
+    document.getElementById("nombreCliente").value = cliente.nombre; 
+    document.getElementById("fechaReserva").value = reserva.fecha_reserva; 
+    document.getElementById("horaReserva").value = reserva.hora_reserva;
+    document.getElementById("cantidadPersonas").value = reserva.cantidad_personas;
+    document.getElementById("mesaReserva").value = reserva.id_mesa;
+
+    document.querySelector("#formReserva button[type= 'submit']").textContent = "Actualizar Reserva";
+
+    mostrarPantalla("pantallaFormulario"); 
 }
 
 
