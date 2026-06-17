@@ -346,3 +346,42 @@ body {
     margin-top: 4px;
     font-size: 10px;
 }
+
+body {
+    background: linear-gradient(180deg, #eef3f0 0%, #f8f9fa 100%);
+}
+
+.pantalla {
+    border-radius: 18px;
+}
+
+.logo h1 {
+    color: #263238;
+}
+
+.btn-principal {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-principal:hover {
+    transform: translateY(-1px);
+}
+
+.item-reserva {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.calendario {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.dia-calendario {
+    transition: transform 0.2s ease;
+}
+
+.dia-calendario:hover {
+    transform: scale(1.03);
+    border-color: #2f7657;
+}

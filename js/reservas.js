@@ -103,6 +103,22 @@ function registrarReserva(nombreCliente, fecha, hora, cantidadPersonas, idMesa) 
 
     clientes.push(nuevoCliente);
 
+    const mesaSeleccionada = obtenerMesaPorId(idMesa);
+
+    if (cantidadPersonas > mesaSeleccionada.capacidad) {
+        return {
+            estado: false,
+            mensaje: "La cantidad de personas supera la capacidad de la mesa..."
+        };
+        
+    }
+
+
+
+
+
+
+
     // Crear nueva reserva
     const nuevaReserva = {
         id_reserva: reservas.length + 1,
