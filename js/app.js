@@ -21,6 +21,10 @@ const btnVerListaReservas = document.getElementById("btnVerListaReservas");
 const btnVolverDashboard = document.getElementById("btnVolverDashboard");
 const btnCerrarSesion = document.getElementById("btnCerrarSesion");
 const buscarReserva = document.getElementById("buscarReserva");
+
+const btnMesAnterior = document.getElementById("btnMesAnterior");
+const btnMesSiguiente = document.getElementById("btnMesSiguiente");
+
 let idReservaEditando = null; 
 
 // Eventos de navegacion
@@ -58,6 +62,14 @@ btnVolverDashboard.addEventListener("click", function() {
 
 btnCerrarSesion.addEventListener("click", function() {
     mostrarPantalla("pantallaInicio");
+});
+
+btnMesAnterior.addEventListener("click", function() {
+    irMesAnterior();
+});
+
+btnMesSiguiente.addEventListener("click", function() {
+    irMesSiguiente();
 });
 
 const formReserva = document.getElementById("formReserva");
@@ -153,6 +165,7 @@ function actualizarDashboard() {
 
     if (proximasReservas.length === 0) {
         contenedorProximas.innerHTML = "<p>No hay próximas reservas.</p>";
+        generarCalendario();
         return;
     }
 
@@ -170,7 +183,10 @@ function actualizarDashboard() {
 
         contenedorProximas.appendChild(item);
     });
+
+    generarCalendario();
 }
+
 
 function mostrarListaReservas(filtro = "") {
     const contenedorLista = document.getElementById("listaReservas");
