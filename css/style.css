@@ -385,3 +385,47 @@ body {
     transform: scale(1.03);
     border-color: #2f7657;
 }
+.pantalla {
+    animation: aparecer 0.25s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-resumen,
+.item-reserva,
+.calendario,
+.tarjeta-confirmacion {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+.label-estado {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #202333;
+}
+
+.select-estado {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #dcdfe5;
+    border-radius: 8px;
+    padding: 0 10px;
+    background-color: white;
+}

@@ -236,3 +236,14 @@ function cargarDatosLocalStorage() {
 
     return JSON.parse(datosGuardados); 
 }
+
+// Funcion para actualizar el estado de una reserva
+function actualizarEstadoReserva(idRserva, idEstado) {
+    reservas.forEach(function(reserva) {
+        if (reserva.id_reserva === idReserva) {
+            reserva.id_estado = idEstado; 
+        }
+    });
+
+    guardarDatosLocalStorage();
+}

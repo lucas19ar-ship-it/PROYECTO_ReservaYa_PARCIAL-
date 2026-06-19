@@ -25,6 +25,10 @@ const buscarReserva = document.getElementById("buscarReserva");
 const btnMesAnterior = document.getElementById("btnMesAnterior");
 const btnMesSiguiente = document.getElementById("btnMesSiguiente");
 
+const btnVolverDesdeDashboard = document.getElementById("btnVolverDesdeDashboard");
+const btnReiniciarDatos = document.getElementById("btnReiniciarDatos");
+
+
 let idReservaEditando = null; 
 
 // Eventos de navegacion
@@ -71,6 +75,21 @@ btnMesAnterior.addEventListener("click", function() {
 btnMesSiguiente.addEventListener("click", function() {
     irMesSiguiente();
 });
+
+btnVolverDesdeDashboard.addEventListener("click", function(){
+    mostrarPantalla("pantallaLogin");
+});
+
+btnReiniciarDatos.addEventListener("click", function() {
+    const confirmar = confirm("¿Deseas borrar los datos guardados y volver al JSON inicial?");
+
+    if (confirmar) {
+        localStorage.removeItem("reservaya_datos");
+        location.reload();
+    }
+});
+
+
 
 const formReserva = document.getElementById("formReserva");
 
@@ -226,8 +245,19 @@ function mostrarListaReservas(filtro = "") {
             <p>Hora: ${reserva.hora_reserva}</p>
             <p>Mesa: ${mesa.numero_mesa}</p>
             <p>Personas: ${reserva.cantidad_personas}</p>
-            <p>Estado: ${estado.nombre_estado}</p>
 
+            <label class="label-estado>Estado:</label>
+            <select class="select-estado" onchange="cambiarEstadoReserva(${reserva.id_reserva}, this.value)">
+                ${estadosReserva.map(function(estadoItem) {
+                    return `
+                        <option value="${estadoItem.id_estado}" ${estadoItem.id_estado === reserva.id_estado ? "selected" : ""}>
+                            ${estadoItem.nombre_estado}
+                        </option>
+                    `;
+                }).join("")}
+            </select>
+
+                
             <div class="acciones-reserva">
                 <button class="btn-editar" onclick="editarReserva(${reserva.id_reserva})">
                     Editar 
@@ -274,6 +304,11 @@ function editarReserva(idReserva) {
     mostrarPantalla("pantallaFormulario"); 
 }
 
+function cambiarEstadoReserva(idReserva, idEstado) {
+    actualizarEstadoReserva(idReserva, parseInt(idEstado));
+    mostrarListaReservas(buscarReserva.value);
+    actualizarDashboard();
+}
 
 
 window.addEventListener("load", function() {
